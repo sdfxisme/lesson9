@@ -19,6 +19,8 @@ class Cards:
             self.list_coloda.remove(player_2_card)
         self.player_1_cards = list_cards_player_1
         self.player_2_cards = list_cards_player_2
+        self.player_1_cards.sort()
+        self.player_2_cards.sort()
         kozir_card = random.choice(self.list_coloda)
         self.kozir = kozir_card[1]
         random.shuffle(self.list_coloda)
@@ -35,6 +37,8 @@ class Cards:
             self.list_coloda.remove(self.next_card)
             self.player_2_cards.append(self.next_card)
             print('второй игрок взял карту из колоды {}, в колоде {} карт'.format(self.next_card, len(self.list_coloda)))
+        self.player_1_cards.sort()
+        self.player_2_cards.sort()
         self.turn_cards_player_1_not_kozir = [x for x in self.player_1_cards if x[1] != self.kozir]
         self.turn_cards_player_1_not_kozir.sort()
         self.turn_cards_player_1_kozir = [x for x in self.player_1_cards if x[1] == self.kozir]
