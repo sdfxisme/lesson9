@@ -50,11 +50,13 @@ class Cards:
 
     def turn_cards(self):
         w = 0
-        for i in range(self.turn_num):
+        for i in range(1,self.turn_num):
             if w == 0:
                 self.dobor()
-                if len(self.turn_cards_player_1_not_kozir)>0 : turn_cards_player_1 = self.turn_cards_player_1_not_kozir[0]
-                else: turn_cards_player_1 = self.turn_cards_player_1_kozir[0]
+                if len(self.turn_cards_player_1_not_kozir)>0 :
+                    turn_cards_player_1 = self.turn_cards_player_1_not_kozir[0]
+                else:
+                    turn_cards_player_1 = self.turn_cards_player_1_kozir[0]
                 turn_cards_player_1_suit = turn_cards_player_1[1]
                 turn_cards_player_1_digit = turn_cards_player_1[0]
                 print('ход первого игрока:', turn_cards_player_1)
@@ -65,11 +67,13 @@ class Cards:
                     print('второй игрок взял')
                     self.player_1_cards.remove(turn_cards_player_1)
                     self.dobor()
+                    w = 0
                 elif turn_cards_player_1_suit == self.kozir and turn_cards_player_1[0] > self.turn_cards_player_2_kozir[-1][0]:
                     self.player_2_cards.append(turn_cards_player_1)
                     print('второй игрок взял')
                     self.player_1_cards.remove(turn_cards_player_1)
                     self.dobor()
+                    w = 0
                 elif turn_cards_player_1_suit == self.kozir and turn_cards_player_1[0] < self.turn_cards_player_2_kozir[-1][0]:
                     print('ход второго игрока:', self.turn_cards_player_2_kozir[-1])
                     turn_cards_player_2 = self.turn_cards_player_2_kozir[-1]
@@ -94,11 +98,13 @@ class Cards:
                     print('бито')
                     self.dobor()
                     w = 1
-                print('карты 1-го игрока после хода:', len(self.player_1_cards), self.player_1_cards, 'карты 2-го игрока после хода:', len(self.player_2_cards), self.player_2_cards)
+                print('карты 1-го игрока после {} хода:'.format(i), len(self.player_1_cards), self.player_1_cards, 'карты 2-го игрока после {} хода:'.format(i), len(self.player_2_cards), self.player_2_cards)
             if w == 1:
                 self.dobor()
-                if len(self.turn_cards_player_2_not_kozir)>0 : turn_cards_player_2 = self.turn_cards_player_2_not_kozir[0]
-                else: turn_cards_player_2 = self.turn_cards_player_2_kozir[0]
+                if len(self.turn_cards_player_2_not_kozir)>0 :
+                    turn_cards_player_2 = self.turn_cards_player_2_not_kozir[0]
+                else:
+                    turn_cards_player_2 = self.turn_cards_player_2_kozir[0]
                 turn_cards_player_2_suit = turn_cards_player_2[1]
                 turn_cards_player_2_digit = turn_cards_player_2[0]
                 print('ход второго игрока:', turn_cards_player_2)
@@ -109,11 +115,13 @@ class Cards:
                     self.player_2_cards.remove(turn_cards_player_2)
                     print('первый игрок взял')
                     self.dobor()
+                    w = 1
                 elif turn_cards_player_2_suit == self.kozir and turn_cards_player_2[0] > self.turn_cards_player_1_kozir[-1][0]:
                     self.player_1_cards.append(turn_cards_player_2)
                     self.player_2_cards.remove(turn_cards_player_2)
                     print('первый игрок взял')
                     self.dobor()
+                    w = 1
                 elif turn_cards_player_2_suit == self.kozir and turn_cards_player_2[0] < self.turn_cards_player_1_kozir[-1][0]:
                     print('ход первого игрока:', self.turn_cards_player_1_kozir[-1])
                     turn_cards_player_1 = self.turn_cards_player_1_kozir[-1]
@@ -138,7 +146,7 @@ class Cards:
                     print('бито')
                     self.dobor()
                     w = 0
-                print('карты 1-го игрока после хода:', len(self.player_1_cards), self.player_1_cards, 'карты 2-го игрока после хода:', len(self.player_2_cards), self.player_2_cards)
+                print('карты 1-го игрока после {} хода:'.format(i), len(self.player_1_cards), self.player_1_cards, 'карты 2-го игрока после {} хода:'.format(i), len(self.player_2_cards), self.player_2_cards)
             if len(self.player_1_cards) == 0 and len(self.player_2_cards) == 0:
                 print('ничья')
                 break
@@ -149,6 +157,6 @@ class Cards:
                 print('2-й игрок победил')
                 break
 if __name__ == '__main__':
-    cards_game = Cards(20)
+    cards_game = Cards(25)
     cards_game.set_players_cards()
     cards_game.turn_cards()
