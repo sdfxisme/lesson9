@@ -24,7 +24,13 @@ class Cards:
         kozir_card = random.choice(self.list_coloda)
         self.kozir = kozir_card[1]
         random.shuffle(self.list_coloda)
+        self.list_bito = []
         print('карты 1-го игрока:', len(self.player_1_cards), self.player_1_cards, 'карты 2-го игрока:', len(self.player_2_cards), self.player_2_cards, 'карт в колоде:', len(self.list_coloda), 'козыри:', self.kozir)
+
+    def bito(self,x,y):
+        self.list_bito.append(x)
+        self.list_bito.append(y)
+        self.list_bito.sort()
 
     def dobor(self):
         if len(self.list_coloda) > 0 and len(self.player_1_cards) < 6:
@@ -75,10 +81,17 @@ class Cards:
                     self.dobor()
                     w = 0
                 elif turn_cards_player_1_suit == self.kozir and turn_cards_player_1[0] < self.turn_cards_player_2_kozir[-1][0]:
-                    print('ход второго игрока:', self.turn_cards_player_2_kozir[-1])
-                    turn_cards_player_2 = self.turn_cards_player_2_kozir[-1]
+                    #print('ход второго игрока:', self.turn_cards_player_2_kozir[-1])
+                    print('введите номер козырной карты: 0,1,2,3,4....')  # self.turn_cards_player_2_kozir[-1]
+                    self.m = 7
+                    if self.m > (len(self.turn_cards_player_2_kozir) - 1) :
+                        raise Exception (ValueError)
+                    elif self.m <= (len(self.turn_cards_player_2_kozir) - 1) :
+                        turn_cards_player_2 = self.turn_cards_player_2_kozir[self.m]
+                    print('ход второго игрока:', turn_cards_player_2)
                     self.player_1_cards.remove(turn_cards_player_1)
                     self.player_2_cards.remove(turn_cards_player_2)
+                    self.bito(turn_cards_player_1,turn_cards_player_2)
                     print('бито')
                     self.dobor()
                     w = 1
@@ -87,6 +100,7 @@ class Cards:
                     turn_cards_player_2 = self.turn_cards_player_2_kozir[0]
                     self.player_1_cards.remove(turn_cards_player_1)
                     self.player_2_cards.remove(turn_cards_player_2)
+                    self.bito(turn_cards_player_1, turn_cards_player_2)
                     print('бито')
                     self.dobor()
                     w = 1
@@ -95,6 +109,7 @@ class Cards:
                     turn_cards_player_2 = list_cards_player_2_suit_higher[0]
                     self.player_1_cards.remove(turn_cards_player_1)
                     self.player_2_cards.remove(turn_cards_player_2)
+                    self.bito(turn_cards_player_1, turn_cards_player_2)
                     print('бито')
                     self.dobor()
                     w = 1
@@ -127,6 +142,7 @@ class Cards:
                     turn_cards_player_1 = self.turn_cards_player_1_kozir[-1]
                     self.player_1_cards.remove(turn_cards_player_1)
                     self.player_2_cards.remove(turn_cards_player_2)
+                    self.bito(turn_cards_player_1, turn_cards_player_2)
                     print('бито')
                     self.dobor()
                     w = 0
@@ -135,6 +151,7 @@ class Cards:
                     turn_cards_player_1 = self.turn_cards_player_1_kozir[0]
                     self.player_1_cards.remove(turn_cards_player_1)
                     self.player_2_cards.remove(turn_cards_player_2)
+                    self.bito(turn_cards_player_1, turn_cards_player_2)
                     print('бито')
                     self.dobor()
                     w = 0
@@ -143,6 +160,7 @@ class Cards:
                     turn_cards_player_1 = list_cards_player_1_suit_higher[0]
                     self.player_1_cards.remove(turn_cards_player_1)
                     self.player_2_cards.remove(turn_cards_player_2)
+                    self.bito(turn_cards_player_1, turn_cards_player_2)
                     print('бито')
                     self.dobor()
                     w = 0
